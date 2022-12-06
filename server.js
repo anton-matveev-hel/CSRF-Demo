@@ -1,0 +1,35 @@
+const http = require("http");
+const url = require("url");
+const FileRequestHandler = require("./Server/RequestHandlers/FileRequestHandler");
+const urlMap = require("./Server/url-map");
+
+const PORT = 8000;
+const fileRequestHandler = new FileRequestHandler();
+http.createServer(async (req, res) => {
+  const path = url.parse(req.url).pathname;
+  let response;
+  if(path.startsWith("/static/"))
+  {
+    response = await fileRequestHandler.serveFile(req, path);
+  }
+  else if(typeof urlMap[path] === "function")
+  {
+    response = await urlMap[path](req);
+  }
+  else
+  {
+    response = { status : 404 };
+  }
+
+  writeResponse(res, response);
+}).listen(PORT);
+
+function writeResponse( res, response )
+{
+  res.statusCode = response.status ?? 200;
+  if( response.body )
+  {
+    res.write( response.body );
+  }
+  res.end();
+}
