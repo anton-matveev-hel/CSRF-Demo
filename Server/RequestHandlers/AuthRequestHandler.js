@@ -10,37 +10,60 @@ module.exports = class AuthRequestHandler
 
   async handle(req)
   {
-    if(req.method !== "POST")
+    if(req.method === "POST" )
     {
-      return { status : 400 };
-    }
-    try
-    {
-      const body = await readRequestBody(req);
-      const payload = JSON.parse(body.toString());
-      if(payload.email && payload.password)
+      try
       {
-        const accessToken = this.sessionManager.createSession(payload.email, payload.password);
-        if(accessToken)
+        const body = await readRequestBody(req);
+        const payload = JSON.parse(body.toString());
+        if(payload.email && payload.password)
         {
-          return {
-            status: 200,
-            headers: {
-              "Set-Cookie": `${this.sessionManager.ACCESS_TOKEN_COOKIE}=${accessToken}`
-            }
-          };
+          return this.createSession(payload.email, payload.password)
         }
-
-        return { status: 401 };
+        else
+        {
+          return { status: 400, type: "json", body: {message: "Missing parameters in request body."}};
+        }
       }
-      else
+      catch(e)
       {
-        return { status: 400, type: "json", body: {message: "Missing parameters in request body."}};
+        return { status: 400 };
       }
     }
-    catch(e)
+    else if(req.method === "GET")
     {
-      return { status: 400};
+      return this.retrieveSession(req);
+    }
+    else
+    {
+      return { status: 400 };
+    }
+  }
+
+  createSession(email, password)
+  {
+    const accessToken = this.sessionManager.createSession(email, password);
+    if(accessToken)
+    {
+      return {
+        status : 200,
+        headers : {
+          "Set-Cookie" : `${this.sessionManager.ACCESS_TOKEN_COOKIE}=${accessToken}`
+        }
+      };
+    }
+  }
+
+  retrieveSession(req)
+  {
+    const session = this.sessionManager.verifySession(req);
+    if(session)
+    {
+      return { status : 200, type : "json", body : { email : session.email } };
+    }
+    else
+    {
+      return { status : 401 };
     }
   }
 }

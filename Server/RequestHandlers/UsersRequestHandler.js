@@ -1,6 +1,5 @@
 const SessionManager = require("../Util/SessionManager");
 const UsersDAO = require("../DAO/UsersDAO");
-const { readRequestBody } = require("../Util/request-util");
 
 module.exports = class AccountRequestHandler
 {
