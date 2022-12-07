@@ -5,7 +5,6 @@ module.exports = class AuthRequestHandler
 {
   constructor(args)
   {
-    this.ACCESS_TOKEN_COOKIE = "access_token";
     this.sessionManager = new SessionManager();
   }
 

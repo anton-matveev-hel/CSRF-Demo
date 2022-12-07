@@ -1,6 +1,7 @@
 const crypto = require("crypto");
 const UsersDao = require("../DAO/UsersDAO");
 const SessionsDao = require("../DAO/SessionsDAO");
+const { parseCookies } = require("../Util/request-util");
 
 module.exports = class SessionManager
 {
@@ -25,7 +26,7 @@ module.exports = class SessionManager
 
   verifySession(req)
   {
-    const accessToken = req.cookies[this.ACCESS_TOKEN_COOKIE];
+    const accessToken = parseCookies(req)[this.ACCESS_TOKEN_COOKIE];
     if(accessToken)
     {
       return this.sessionsDao.getSession(accessToken);

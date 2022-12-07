@@ -15,12 +15,18 @@ module.exports = class UsersDAO
 
   getBalance(email)
   {
-    return accounts[email]?.balance;
+    if(accounts[email])
+    {
+      return accounts[email].balance;
+    }
   }
 
   setBalance(email, balance)
   {
-    accounts[email]?.balance = balance;
+    if(accounts[email])
+    {
+      accounts[email].balance = balance;
+    }
   }
 
 }

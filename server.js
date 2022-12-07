@@ -35,8 +35,8 @@ function writeResponse( res, response )
   {
     if(response.type === "json")
     {
-      res.write(JSON.stringify(response.body));
       res.setHeader("Content-Type", "application/json");
+      res.write(JSON.stringify(response.body));
     }
     else
     {
