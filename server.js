@@ -27,9 +27,21 @@ http.createServer(async (req, res) => {
 function writeResponse( res, response )
 {
   res.statusCode = response.status ?? 200;
-  if( response.body )
+  if( response.headers )
   {
-    res.write( response.body );
+    Object.keys(response.headers).forEach( header => res.setHeader(header, response.headers[header]));
+  }
+  if(response.body)
+  {
+    if(response.type === "json")
+    {
+      res.write(JSON.stringify(response.body));
+      res.setHeader("Content-Type", "application/json");
+    }
+    else
+    {
+      res.write(response.body);
+    }
   }
   res.end();
 }
