@@ -7,21 +7,17 @@
     </head>
     <body onload="init()">
     <h1>Hi <span id="userName"></span>!</h1>
-        <h2>Balance: $<span id="balanceValue"></span></h2>
+        <h2>Your balance is $<span id="balanceValue"></span>.</h2>
         <hr>
-        <h2>Send Money</h2>
-        <div>Recipient:</div>
+        <h2>Send $ <input class="field" type="number" id="amount" name="amount"> to</h2>
         <div id="recipients"></div>
         <br>
         <div>
-            <label for="amount">Amount</label>
-            <input type="number" id="amount" name="amount">
-            <button onclick="sendMoney()">Send</button>
+            <button class="button" onclick="sendMoney()">Send</button>
         </div>
         <hr>
-        <h2>Change Profile Name</h2>
-        <label for="profileName">Name</label>
-        <input type="text" id="profileName" name="profileName">
-        <button onclick="changeName()">Change</button>
+        <h2>Profile Name</h2>
+        <input class="field" type="text" id="profileName" name="profileName">
+        <button class="button" onclick="changeName()">Change</button>
     </body>
 </html>

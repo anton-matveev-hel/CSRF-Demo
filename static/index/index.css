@@ -1,0 +1,16 @@
+@import url("/static/shared.css");
+
+#amount {
+    text-align: center;
+    position: relative;
+    top: -5px;
+}
+
+#profileName {
+    position: relative;
+    top: 3px;
+}
+
+.recipientRadioLabel {
+    font-size: 15pt;
+}

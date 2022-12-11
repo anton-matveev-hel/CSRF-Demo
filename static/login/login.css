@@ -1,3 +1,19 @@
+@import url("/static/shared.css");
+
+body {
+    text-align: center;
+    padding-top: 25px;
+}
+
+.field {
+    margin: 10px;
+    width: 200px;
+}
+
+.button {
+    width: 200px;
+}
+
 #message {
     color: red;
 }

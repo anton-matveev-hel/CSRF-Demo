@@ -49,6 +49,7 @@ function sendMoney()
   {
     if(response.status === 200)
     {
+      window.alert(`$${amount} have been set to ${recipient}.`)
       window.location.href = "/";
     }
     else
@@ -87,7 +88,7 @@ function setRecipients(users)
       return;
     }
     content += `<input type="radio" id="${user.email}_radio" name="recipient" value="${user.email}">` +
-               `<label for="${user.email}_radio">${user.name}</label><br>`;
+               `<label class="recipientRadioLabel" for="${user.email}_radio">${user.name}</label><br>`;
   });
   document.getElementById("recipients").innerHTML = content;
 }
