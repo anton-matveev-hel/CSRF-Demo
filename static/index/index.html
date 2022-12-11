@@ -6,8 +6,10 @@
         <link rel="stylesheet" href="/static/index/index.css"/>
     </head>
     <body onload="init()">
-        <div id="balance">Balance: <span id="balanceValue"></span></div>
-        <h1>Send Money</h1>
+    <h1>Hi <span id="userName"></span>!</h1>
+        <h2>Balance: $<span id="balanceValue"></span></h2>
+        <hr>
+        <h2>Send Money</h2>
         <div>Recipient:</div>
         <div id="recipients"></div>
         <br>
@@ -16,5 +18,10 @@
             <input type="number" id="amount" name="amount">
             <button onclick="sendMoney()">Send</button>
         </div>
+        <hr>
+        <h2>Change Profile Name</h2>
+        <label for="profileName">Name</label>
+        <input type="text" id="profileName" name="profileName">
+        <button onclick="changeName()">Change</button>
     </body>
 </html>

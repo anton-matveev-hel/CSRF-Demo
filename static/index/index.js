@@ -3,7 +3,11 @@ function init() {
   {
     if(response.status === 200)
     {
-      response.json().then(result => window.$user_email = result.email);
+      response.json().then(result =>
+      {
+        window.$user_email = result.email;
+        document.getElementById("userName").innerText = result.name;
+      });
     }
     else
     {
@@ -52,6 +56,25 @@ function sendMoney()
       handleError(response);
     }
   } );
+}
+
+function changeName()
+{
+  const name = document.getElementById("profileName").value;
+  fetch( "/user/name", {
+    method: "POST",
+    body: JSON.stringify({ name })
+  } ).then(response =>
+  {
+    if(response.status === 200)
+    {
+      window.location.href = "/";
+    }
+    else
+    {
+      handleError(response);
+    }
+  });;
 }
 
 function setRecipients(users)

@@ -1,4 +1,5 @@
 const SessionManager = require("../Util/SessionManager");
+const UsersDAO = require("../DAO/UsersDAO");
 const { readRequestBody } = require("../Util/request-util");
 
 module.exports = class AuthRequestHandler
@@ -6,6 +7,7 @@ module.exports = class AuthRequestHandler
   constructor(args)
   {
     this.sessionManager = new SessionManager();
+    this.usersDao = new UsersDAO();
   }
 
   async handle(req)
@@ -59,7 +61,8 @@ module.exports = class AuthRequestHandler
     const session = this.sessionManager.verifySession(req);
     if(session)
     {
-      return { status : 200, type : "json", body : { email : session.email } };
+      const user = this.usersDao.getUser(session.email);
+      return { status : 200, type : "json", body : { email : session.email, name : user.name } };
     }
     else
     {
