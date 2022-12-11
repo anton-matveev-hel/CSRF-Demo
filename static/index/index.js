@@ -93,6 +93,12 @@ function setRecipients(users)
   document.getElementById("recipients").innerHTML = content;
 }
 
+function logOut()
+{
+  document.cookie = "access_token="; // Naive log out, does not actually revoke the session on the server.
+  window.location.href = "/login";
+}
+
 function handleError(response) {
   if(response.status === 401)
   {
