@@ -7,5 +7,5 @@ Preset users:
 2. alice@email.com - $2000
 3. eve@email.com - $0
 
-Password for every user: 12345. \n
+Password for every user: 12345. <br>
 Rerunning the server will reset the database.
